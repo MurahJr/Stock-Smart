@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Container, Typography } from "@material-ui/core";
+import { Button, Container, Typography, Box } from "@mui/material";
 import logo from "./images/pantryaccess.png";
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useEffect } from "react";
 import { Link } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,44 +13,55 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    minHeight: "50vh",
-    backgroundColor: "none",
+    minHeight: "100vh",
+    background: "linear-gradient(to bottom right, #2E3B55, #1F2A38)", // Gradient background
+    padding: theme.spacing(4),
+  },
+  container: {
+    backgroundColor: "rgba(255, 255, 255, 0.9)", // Slightly transparent white
+    borderRadius: "12px",
+    padding: "30px",
+    boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+    textAlign: "center",
+    maxWidth: "600px",
     margin: "auto",
   },
   logo: {
-    width: 250,
-    marginRight: "auto",
-    marginLeft: "auto",
-    display: "flex",
+    width: 200,
+    marginBottom: theme.spacing(3),
+    transition: "transform 0.3s ease-in-out",
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
   },
   title: {
-    color: theme.palette.common.black,
+    color: theme.palette.primary.main,
     marginBottom: theme.spacing(2),
-    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: "2.5rem",
   },
   description: {
-    color: theme.palette.common.black,
+    color: theme.palette.text.primary,
     marginBottom: theme.spacing(4),
-    textAlign: "center",
+    fontSize: "1.2rem",
   },
   button: {
-    color: theme.palette.common.white,
-    backgroundColor: "#3b9d6e",
-    outline: "true",
-    textAlign: "center",
+    backgroundColor: theme.palette.primary.main,
+    color: "#FFF",
+    margin: "10px",
+    padding: "10px 20px",
+    borderRadius: "8px",
+    textTransform: "none",
     "&:hover": {
-      backgroundColor: "#3b7b6e",
+      backgroundColor: theme.palette.primary.dark,
     },
-    display: "flex",
-    margin: "auto",
-    marginTop: "2rem",
   },
 }));
 
 function LandingPage({ viewFoodPantries, setViewFoodPantries }) {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   const redirect = () => {
     navigate("/login");
@@ -65,33 +75,22 @@ function LandingPage({ viewFoodPantries, setViewFoodPantries }) {
 
   return (
     <div className={classes.root}>
-      <Container maxWidth="sm">
-        <img src={logo} alt="Logo" className={classes.logo} />
+      <Container maxWidth="sm" className={classes.container}>
+        <img src={logo} alt="StockSmart Logo" className={classes.logo} />
         <Typography variant="h4" className={classes.title}>
-          Welcome to the Pantry Access
+          Welcome to StockSmart!
         </Typography>
         <Typography variant="subtitle1" className={classes.description}>
-          Pantry Access is a <i>universal</i> food pantry application for food
-          pantries and clients. Our free, cross-platform web application streamlines
-          communication between clients and pantries, and provides a
-          single cloud-based location to manage inventory and desired donations.
+        
+        
         </Typography>
         <Typography variant="subtitle2" className={classes.description}>
-          This application was developed by Charles Tang, Jennifer Shaughnessy,
-          and Sumanth Sura of Mass Academy in the Apps for Good project. This
-          project was also advised by Mrs. Taricco of Mass Academy. The code is{" "}
-          <i>open-source</i>, and the documentation can be found{" "}
-          <Link target="0" href="https://github.com/Pantry-Access-AFG">
-            here
-          </Link>
-          .
+        Transform your kitchen with StockSmart—your smart pantry management app that effortlessly tracks and organizes your inventory.
         </Typography>
-
         {!viewFoodPantries ? (
           <>
             <Button
               variant="contained"
-              color="primary"
               className={classes.button}
               onClick={redirect}
             >
@@ -99,17 +98,15 @@ function LandingPage({ viewFoodPantries, setViewFoodPantries }) {
             </Button>
             <Button
               variant="contained"
-              color="primary"
               className={classes.button}
               onClick={() => setViewFoodPantries(true)}
             >
-              Guest
+              Explore as Guest
             </Button>
           </>
         ) : (
           <Button
             variant="contained"
-            color="primary"
             className={classes.button}
             onClick={() => setViewFoodPantries(false)}
           >
@@ -118,7 +115,6 @@ function LandingPage({ viewFoodPantries, setViewFoodPantries }) {
         )}
         <Button
             variant="contained"
-            color="primary"
             className={classes.button}
             onClick={() => navigate("/Contact")}
           >

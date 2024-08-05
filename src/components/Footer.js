@@ -1,24 +1,24 @@
 import React from "react";
-import { Typography, Link } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import Stack from "@mui/material/Stack";
+import { Typography, Link, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const FooterContainer = styled('footer')(({ theme }) => ({
-  backgroundColor: "#2E3B55",
-  padding: "20px 0",
+  backgroundColor: theme.palette.primary.main, // Match the AppBar color
+  padding: "40px 20px",
   position: "relative",
-  left: "0",
-  right: "0",
-  color: "#FFF",
+  bottom: "0",
+  width: "100%",
+  color: theme.palette.common.white,
   textAlign: "center",
+  boxShadow: `0 -2px 5px rgba(0, 0, 0, 0.1)`,
 }));
 
 const FooterLink = styled(Link)(({ theme }) => ({
-  color: "#FFF",
+  color: theme.palette.secondary.main, // Match hover color of AppBar
   textDecoration: "none",
+  fontWeight: "bold",
   "&:hover": {
-    color: "#FFC107",
+    color: theme.palette.secondary.light, // Lighter color on hover
     transition: "color 0.3s ease-in-out",
   },
 }));
@@ -27,24 +27,31 @@ const FooterText = styled(Typography)(({ theme }) => ({
   margin: "0.5em 0",
 }));
 
+const FooterLogo = styled('img')(({ theme }) => ({
+  width: "100px",
+  marginBottom: "10px",
+}));
+
 function Footer() {
-  const navigate = useNavigate();
   return (
     <FooterContainer>
-      <FooterText variant="subtitle2" component="p">
-        <Stack spacing={1}>
-          Pantry Access
-          <FooterLink href="/Contact" rel="noopener">
-            Contact Us
-          </FooterLink>
-          <FooterLink href="https://github.com/Pantry-Access-AFG" target="_blank" rel="noopener">
-            Documentation
-          </FooterLink>
-          <FooterText>
-            &copy; {new Date().getFullYear()} StockSmart. All Rights Reserved.
-          </FooterText>
-        </Stack>
-      </FooterText>
+      <FooterLogo src="/log.png" alt="StockSmart Logo" />
+      <Stack spacing={2}>
+        <FooterText variant="subtitle1" component="p">
+          Welcome to StockSmart
+        </FooterText>
+        <FooterText variant="subtitle2">
+          <Stack direction="row" spacing={2} justifyContent="center">
+            <FooterLink href="/Contact" rel="noopener">
+              Contact Us
+            </FooterLink>
+            
+          </Stack>
+        </FooterText>
+        <FooterText variant="caption">
+          &copy; {new Date().getFullYear()} StockSmart. All Rights Reserved.
+        </FooterText>
+      </Stack>
     </FooterContainer>
   );
 }

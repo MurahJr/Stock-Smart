@@ -10,6 +10,7 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   padding: '10px 20px',
   backgroundColor: '#2E3B55',
   color: '#FFF',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
 }));
 
 const Logo = styled('img')({
@@ -18,6 +19,11 @@ const Logo = styled('img')({
   '&:hover': {
     transform: 'scale(1.1)',
   },
+});
+
+const NavLinksContainer = styled('nav')({
+  display: 'flex',
+  alignItems: 'center',
 });
 
 const NavLink = styled(Link)({
@@ -38,14 +44,20 @@ const Header = () => (
       <Link to="/">
         <Logo src={logo} alt="StockSmart logo" />
       </Link>
-      <NavLink to="/">StockSmart</NavLink>
+      <NavLinksContainer>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
+        <NavLink to="/myrequests">My Requests</NavLink>
+        <NavLink to="/login">Log In</NavLink>
+      </NavLinksContainer>
     </HeaderContainer>
     <hr
       style={{
         color: "#FFF",
-        background: "#FFF",
+        backgroundColor: "#FFF",
         borderColor: "#FFF",
         height: "0.5px",
+        margin: "0",
       }}
     />
   </div>
