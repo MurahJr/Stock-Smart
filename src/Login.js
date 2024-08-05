@@ -6,7 +6,6 @@ import {
 } from "firebase/auth";
 import { db } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
-import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -17,15 +16,11 @@ import {
   Button,
   FormControlLabel,
   Checkbox,
-  eac
+  Alert,
+  useTheme
 } from "@mui/material";
 import isValidPostalCode from "./components/zipcode";
-import Alert from "@mui/material/Alert";
 
-
-/**
- * @returns Component for the LoginPage
- */
 export default function Login() {
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -38,12 +33,8 @@ export default function Login() {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const theme = useTheme();
 
-  /**
-   * When logged in, navigate to home page.
-   * Else, navigate by default to the login page.
-   * Runs when user or the loading variables update.
-   */
   useEffect(() => {
     if (loading) {
       return;
@@ -55,11 +46,6 @@ export default function Login() {
     }
   }, [user, loading]);
 
-  /**
-   * Async method to register a user
-   * If the username does not have an email, it will add an automatic "fake" one
-   * Will update account informtaion in Firebase Firestore as well as Firebase Authenatication
-   */
   const register = async () => {
     try {
       if (!isValidPostalCode(registerZipcode)) {
@@ -113,10 +99,6 @@ export default function Login() {
     }
   };
 
-  /**
-   * Async method to log in.
-   * Will automatically apply ending email if not found in the username
-   */
   const login = async () => {
     try {
       if (loginUsername.includes("@")) {
@@ -137,9 +119,6 @@ export default function Login() {
     }
   };
 
-  /**
-   * Method to logout by calling the signOut hook from React Firebase Hooks
-   */
   const logout = () => {
     signOut(auth);
   };
@@ -147,7 +126,21 @@ export default function Login() {
   return (
     <>
       {!registerOpen && (
-        <Stack className="center" spacing={2}>
+        <Stack
+          className="center"
+          spacing={3}
+          alignItems="center"
+          justifyContent="center"
+          sx={{
+            width: '100%',
+            maxWidth: '400px',
+            margin: 'auto',
+            padding: '20px',
+            border: `2px solid ${theme.palette.divider}`,
+            borderRadius: '12px',
+            boxShadow: `0 4px 8px ${theme.palette.action.disabled}`,
+          }}
+        >
           <Typography variant="h5" margin={3}>
             Sign In to an Existing Account
           </Typography>
@@ -158,6 +151,8 @@ export default function Login() {
               setLoginUsername(event.target.value);
               setErrorMessage("");
             }}
+            fullWidth
+            sx={{ marginBottom: '16px' }}
           />
           <TextField
             label="Password"
@@ -167,8 +162,20 @@ export default function Login() {
               setLoginPassword(event.target.value);
               setErrorMessage("");
             }}
+            fullWidth
+            sx={{ marginBottom: '16px' }}
           />
-          <Button variant="contained" onClick={login}>
+          <Button
+            variant="contained"
+            onClick={login}
+            sx={{
+              width: '100%',
+              marginBottom: '16px',
+              '&:hover': {
+                backgroundColor: theme.palette.primary.dark,
+              },
+            }}
+          >
             Sign In
           </Button>
           <Button
@@ -177,19 +184,33 @@ export default function Login() {
               setRegisterOpen(!registerOpen);
               setErrorMessage("");
             }}
+            sx={{
+              width: '100%',
+              marginBottom: '16px',
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover,
+              },
+            }}
           >
             Sign Up
           </Button>
           <Button
             variant="outlined"
             onClick={() => navigate("/account-recovery")}
+            sx={{
+              width: '100%',
+              marginBottom: '16px',
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover,
+              },
+            }}
           >
             Reset Password
           </Button>
-          <br></br>
           {errorMessage && (
             <Alert
               severity="error"
+              sx={{ width: '100%' }}
             >
               {errorMessage}
             </Alert>
@@ -198,7 +219,21 @@ export default function Login() {
       )}
 
       {registerOpen && (
-        <Stack className="center" spacing={2}>
+        <Stack
+          className="center"
+          spacing={3}
+          alignItems="center"
+          justifyContent="center"
+          sx={{
+            width: '100%',
+            maxWidth: '400px',
+            margin: 'auto',
+            padding: '20px',
+            border: `2px solid ${theme.palette.divider}`,
+            borderRadius: '12px',
+            boxShadow: `0 4px 8px ${theme.palette.action.disabled}`,
+          }}
+        >
           <Typography variant="h5" margin={3}>
             Register an Account
           </Typography>
@@ -209,6 +244,8 @@ export default function Login() {
               setRegisterUsername(event.target.value);
               setErrorMessage("");
             }}
+            fullWidth
+            sx={{ marginBottom: '16px' }}
           />
           <TextField
             label="Password"
@@ -218,6 +255,8 @@ export default function Login() {
               setRegisterPassword(event.target.value);
               setErrorMessage("");
             }}
+            fullWidth
+            sx={{ marginBottom: '16px' }}
           />
           <TextField
             label="Full Name"
@@ -226,6 +265,8 @@ export default function Login() {
               setRegisterFullName(event.target.value);
               setErrorMessage("");
             }}
+            fullWidth
+            sx={{ marginBottom: '16px' }}
           />
           <TextField
             label="Zipcode"
@@ -234,6 +275,8 @@ export default function Login() {
               setRegisterZipcode(event.target.value);
               setErrorMessage("");
             }}
+            fullWidth
+            sx={{ marginBottom: '16px' }}
           />
           <FormControlLabel
             control={
@@ -245,17 +288,28 @@ export default function Login() {
                 }}
               />
             }
-            label="Are you a food pantry?"
+            label="Affiliation?"
+            sx={{ marginBottom: '16px' }}
           />
-          <br />
           {errorMessage && (
             <Alert
               severity="error"
+              sx={{ width: '100%' }}
             >
               {errorMessage}
             </Alert>
           )}
-          <Button variant="contained" onClick={register}>
+          <Button
+            variant="contained"
+            onClick={register}
+            sx={{
+              width: '100%',
+              marginBottom: '16px',
+              '&:hover': {
+                backgroundColor: theme.palette.primary.dark,
+              },
+            }}
+          >
             Create User
           </Button>
           <Button
@@ -264,12 +318,18 @@ export default function Login() {
               setRegisterOpen(!registerOpen);
               setErrorMessage("");
             }}
+            sx={{
+              width: '100%',
+              marginBottom: '16px',
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover,
+              },
+            }}
           >
             Return to Sign In
           </Button>
         </Stack>
       )}
-
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, Typography, Button } from "@mui/material";
+import { Container, Typography, Button, Box } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,8 +11,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
   },
+  formContainer: {
+    border: "2px solid #ccc", // Border color
+    borderRadius: "8px", // Rounded corners
+    padding: theme.spacing(4), // Padding inside the border
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Shadow effect
+    maxWidth: "400px", // Max width for a more square-like look
+    margin: "auto",
+  },
   button: {
-    textAlign: "center",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -21,12 +30,12 @@ function ForgotPassword() {
 
   return (
     <div className={classes.root}>
-      <Container maxWidth="sm">
+      <Container className={classes.formContainer}>
         <Typography variant="h4" gutterBottom>
           Forgot Password?
         </Typography>
         <Typography variant="body1" align="center" gutterBottom>
-          You can recover your account by emailing us:
+        Contact us via email
         </Typography>
         <Button
           variant="contained"
@@ -34,16 +43,12 @@ function ForgotPassword() {
           size="large"
           href="mailto:tafadzwa.murah@gmail.com"
           className={classes.button}
-          sx={{ marginTop: "1rem", marginBottom: "1rem" }}
         >
           Email Us
         </Button>
         <Typography variant="body1" align="center" gutterBottom>
-          If you have any questions or concerns about our food pantry program,
-          please feel free to contact us using the email below. We will get back
-          to you as soon as possible.
+        We value your privacy. Your information will not be shared with third parties. We aim to respond to all inquiries within 48 hours.
         </Typography>
-        
       </Container>
     </div>
   );
