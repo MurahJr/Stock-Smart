@@ -76,7 +76,7 @@ function LandingPage({ viewFoodPantries, setViewFoodPantries }) {
   return (
     <div className={classes.root}>
       <Container maxWidth="sm" className={classes.container}>
-        <img src={logo} alt="StockSmart Logo" className={classes.logo} />
+        <img src="/log.png" alt="StockSmart Logo" className={classes.logo} />
         <Typography variant="h4" className={classes.title}>
           Welcome to StockSmart!
         </Typography>
