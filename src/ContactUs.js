@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography, Button, TextField, Grid, Link } from "@mui/material";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa6";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,16 +97,16 @@ function ContactUs() {
           <Typography variant="body1" gutterBottom>
             Follow us on:
           </Typography>
-          <Link href="https://www.facebook.com" target="_blank">
+          <Link href="https://www.facebook.com/debre.muranda" target="_blank">
             <FaFacebook size={30} />
           </Link>
-          <Link href="https://www.twitter.com" target="_blank">
+          <Link href="https://x.com/MurahJr" target="_blank">
             <FaTwitter size={30} />
           </Link>
-          <Link href="https://www.instagram.com" target="_blank">
-            <FaInstagram size={30} />
+          <Link href="https://github.com/MurahJr" target="_blank">
+            <FaGithub size={30} />
           </Link>
-          <Link href="https://www.linkedin.com" target="_blank">
+          <Link href="https://linkedin.com/in/tafadzwa-muranda" target="_blank">
             <FaLinkedin size={30} />
           </Link>
         </div>
