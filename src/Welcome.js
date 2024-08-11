@@ -96,13 +96,7 @@ function LandingPage({ viewFoodPantries, setViewFoodPantries }) {
             >
               Sign In/Sign Up
             </Button>
-            <Button
-              variant="contained"
-              className={classes.button}
-              onClick={() => setViewFoodPantries(true)}
-            >
-              Explore as Guest
-            </Button>
+
           </>
         ) : (
           <Button
